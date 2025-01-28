@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<library>
+    <book id="1">
+        <title>Let Us C</title>
+        <author>Yashavant Kanetkar</author>
+        <publisher>BPB Publications</publisher>
+        <price>299.00</price>
+        <year>2008</year>
+    </book>
+    <book id="2">
+        <title>DBMS</title>
+        <author>Raghu Ramakrishnan</author>
+        <publisher>McGraw-Hill Education</publisher>
+        <price>650.00</price>
+        <year>2003</year>
+    </book>
+    <book id="3">
+        <title>Cloud Computing</title>
+        <author>Thomas</author>
+        <publisher>Pearson</publisher>
+        <price>850.00</price>
+        <year>2010</year>
+    </book>
+    <book id="4">
+        <title>Programming in the World Wide Web</title>
+        <author>Robert W. Sebesta</author>
+        <publisher>Pearson</publisher>
+        <price>950.00</price>
+        <year>2012</year>
+    </book>
+</library>
