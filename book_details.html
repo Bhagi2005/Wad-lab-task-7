@@ -1,0 +1,95 @@
+<html>
+<head>
+    <title>Book Details</title>
+    <style>
+        body 
+        {
+            margin: 20px;
+            background-color: #9da1c6;
+        }
+        table 
+        {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+        }
+        th, td 
+        {
+            border: 1px solid #191919;
+            padding: 8px;
+            text-align: center;
+        }
+        th 
+        {
+             background-color: #0b0b0a;
+            color: white;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>Parsing and displaying Book Detail</h1>
+    <button onclick="loadBooks()">Books details</button>
+    <table id="bookTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody id="bookTableBody"></tbody>
+    </table>
+
+    <script>
+        function loadBooks() 
+        {
+            const xmlData = `
+                <library>
+                    <book>
+                        <title>Introduction to JavaScript</title>
+                        <author>John Doe</author>
+                        <price>25.99</price>
+                    </book>
+                    <book>
+                        <title>Learn XML</title>
+                        <author>Jane Smith</author>
+                        <price>15.50</price>
+                    </book>
+                    <book>
+                        <title>Advanced Programming</title>
+                        <author>David Lee</author>
+                        <price>35.75</price>
+                    </book>
+                </library>
+            `;
+
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(xmlData, "text/xml");
+
+            const books = xmlDoc.getElementsByTagName("book");
+            const tableBody = document.getElementById("bookTableBody");
+
+            tableBody.innerHTML = "";
+
+            for (let i = 0; i < books.length; i++) 
+            {
+                const title = books[i].getElementsByTagName("title")[0].textContent;
+                const author = books[i].getElementsByTagName("author")[0].textContent;
+                const price = books[i].getElementsByTagName("price")[0].textContent;
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${title}</td>
+                    <td>${author}</td>
+                    <td>${price}</td>
+                `;
+                tableBody.appendChild(row);
+            }
+
+            document.getElementById("bookTable").style.display = "table";
+        }
+    </script>
+</body>
+</html>
