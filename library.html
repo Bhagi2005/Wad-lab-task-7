@@ -1,0 +1,236 @@
+<html>
+<head>
+    <title>Library Books</title>
+    <style>
+    body 
+    {
+        background-color: #eca4f1;
+    }
+
+    h1 
+    {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    h2 
+    {
+        color: #555;
+        margin-top: 20px;
+    }
+
+    table 
+    {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background-color: rgba(244, 248, 241, 0.846);
+    }
+
+    th, td
+    {
+        border: 1px solid #101010;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th
+    {
+        background-color: #e6a4a4;
+        font-weight: bold;
+        color: #333;
+    }
+
+    form 
+    {
+        width: 80%;
+        margin: 20px auto;
+        padding: 10px; 
+        background-color: transparent;
+    }
+
+    label 
+    {
+        display: block;
+        margin-bottom: 2px; 
+        font-size: small; 
+    }
+
+    input[type="text"],
+    input[type="number"] 
+    {
+        width: 500px;
+        padding: 3px; 
+        margin-bottom: 5px; 
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: small; 
+    }
+
+    button 
+    {
+        background-color: #4b474e;
+        color: white;
+        padding: 5px 10px; 
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: medium;
+    }
+
+    button:hover 
+    {
+        background-color: #4b474e;
+    }
+
+</style>
+</head>
+<body>
+
+    <h1>Library Books</h1>
+
+    <h2>Existing Books</h2>
+    <table id="existing-books-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Price</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Add New Book</h2>
+    <form id="add-book-form">
+    <label for="title">Title: <input type="text" id="title" required></label>
+
+    <label for="author">Author: <input type="text" id="author" required></label>
+
+    <label for="publisher">Publisher: <input type="text" id="publisher" required></label>
+
+    <label for="price">Price: <input type="number" id="price" required></label>
+
+    <label for="year">Year: <input type="number" id="year" required></label>
+
+    <button type="submit">Add Book</button>
+</form>
+
+    <h2>Updated XML</h2>
+    <table id="updated-books-table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Publisher</th>
+                <th>Price</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        let xmlString = `<?xml version="1.0"?>
+        <library>
+            <book>
+                <title>Let us C</title>
+                <author>Yashavant Kanetkar</author>
+                <publisher>BPB Publications</publisher>
+                <price>299.00</price>
+                <year>2008</year>
+            </book>
+            <book>
+                <title>DBMS</title>
+                <author>Raghu Ramakrishnan</author>
+                <publisher>McGraw-Hill Education</publisher>
+                <price>650.00</price>
+                <year>2003</year>
+            </book>
+            <book>
+                <title>Cloud Computing</title>
+                <author>Thomas</author>
+                <publisher>Pearson</publisher>
+                <price>850.00</price>
+                <year>2010</year>
+            </book>
+            <book>
+                <title>Programming in the world wide web</title>
+                <author>Robert W. Sebesta</author>
+                <publisher>Pearson</publisher>
+                <price>950.00</price>
+                <year>2012</year>
+            </book>
+        </library>`;
+
+        const parser = new DOMParser();
+
+        function displayXmlInTable(xmlString, tableId)
+        {
+            const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+            const tableBody = document.getElementById(tableId).querySelector("tbody");
+            tableBody.innerHTML = "";
+
+            const books = xmlDoc.getElementsByTagName("book");
+            for (const book of books)
+             {
+                const row = tableBody.insertRow();
+                const title = row.insertCell();
+                const author = row.insertCell();
+                const publisher = row.insertCell();
+                const price = row.insertCell();
+                const year = row.insertCell();
+
+                title.textContent = book.querySelector("title").textContent;
+                author.textContent = book.querySelector("author").textContent;
+                publisher.textContent = book.querySelector("publisher").textContent;
+                price.textContent = book.querySelector("price").textContent;
+                year.textContent = book.querySelector("year").textContent;
+            }
+        }
+
+        displayXmlInTable(xmlString, "existing-books-table");
+
+        document.getElementById("add-book-form").addEventListener("submit", function (event)
+        {
+            event.preventDefault();
+
+            const title = document.getElementById("title").value;
+            const author = document.getElementById("author").value;
+            const publisher = document.getElementById("publisher").value;
+            const price = document.getElementById("price").value;
+            const year = document.getElementById("year").value;
+
+            const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+
+            const newBook = xmlDoc.createElement("book");
+            const titleElement = xmlDoc.createElement("title");
+            titleElement.textContent = title;
+            newBook.appendChild(titleElement);
+            const authorElement = xmlDoc.createElement("author");
+            authorElement.textContent = author;
+            newBook.appendChild(authorElement);
+            const publisherElement = xmlDoc.createElement("publisher");
+            publisherElement.textContent = publisher;
+            newBook.appendChild(publisherElement);
+            const priceElement = xmlDoc.createElement("price");
+            priceElement.textContent = price;
+            newBook.appendChild(priceElement);
+            const yearElement = xmlDoc.createElement("year");
+            yearElement.textContent = year;
+            newBook.appendChild(yearElement);
+
+            xmlDoc.getElementsByTagName("library")[0].appendChild(newBook);
+
+            xmlString = new XMLSerializer().serializeToString(xmlDoc);
+
+            displayXmlInTable(xmlString, "updated-books-table");
+            document.getElementById("add-book-form").reset();
+        });
+    </script>
+
+</body>
+</html>
