@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="fourth.xsl"?>
+<library>
+    <book>
+        <title>JavaScript for Beginners</title>
+        <author>John Doe</author>
+        <publisher>TechBooks</publisher>
+        <price>29.99</price>
+        <year>2020</year>
+    </book>
+    <book>
+        <title>Mastering Python</title>
+        <author>Jane Smith</author>
+        <publisher>CodePress</publisher>
+        <price>39.99</price>
+        <year>2021</year>
+    </book>
+    <book>
+        <title>HTML &amp; CSS: Design and Build Websites</title>
+        <author>Jon Duckett</author>
+        <publisher>Wiley</publisher>
+        <price>24.99</price>
+        <year>2011</year>
+    </book>
+    <book>
+        <title>Learning Java</title>
+        <author>Herbert Schildt</author>
+        <publisher>McGraw-Hill</publisher>
+        <price>34.99</price>
+        <year>2019</year>
+    </book>
+</library>
